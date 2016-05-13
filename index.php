@@ -41,7 +41,26 @@
               <div class="inner">
                 <header class="post-header">
                   <h2 class="post-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-                  <span class="post-meta">Posted by <a href="#"><?php the_author(); ?></a> in <a href="">Uncategorized</a> | <time datetime="<?php echo date( 'Y-F-j' ) ?>"><?php echo date( 'F j, Y' ) ?></time></span>
+                  <span class="post-meta">Posted by <a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php the_author(); ?></a> in 
+
+                  <?php
+
+                  $categories = get_the_category();
+                  $seperator = ", ";
+                  $output = '';
+
+                  if ($categories) {
+                    foreach ($categories as $category) {
+                      $output .= '<a href="' . get_category_link( $category -> term_id ) . '">' . $category -> cat_name . '</a>' . $seperator;
+                    }
+
+                    echo trim($output, $seperator);
+                  }
+
+                  ?>
+
+                  <!-- <a href="">Uncategorized</a> |  -->
+                  <time datetime="<?php echo date( 'Y-F-j' ) ?>"><?php echo date( 'F j, Y' ) ?></time></span>
                   <div class="clear"></div>
                 </header>
 

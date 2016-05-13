@@ -18,7 +18,7 @@
           </span>
         </nav>
         <h1 class="post-title"><?php the_title(); ?></h1>
-        <span class="post-meta"><a href="/author/zutrinken/"><?php the_author(); ?></a> | <time datetime="2015-11-20"><?php echo date( 'F j, Y' ); ?></time></span>
+        <span class="post-meta"><a href="<?php get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php the_author(); ?></a> | <time datetime="<?php the_date( 'y-m-d' ); ?>"><?php the_date( 'F j, Y' ); ?></time></span>
 
         <?php global $post; ?>
         <?php
