@@ -111,6 +111,32 @@ function attila_widgets_init() {
 add_action( 'widgets_init', 'attila_widgets_init' );
 
 /**
+ * Add Author Links
+ */
+function add_to_author_profile( $contactmethods ) {
+  $contactmethods['rss_url'] = 'RSS URL';
+  $contactmethods['google_profile'] = 'Google Profile URL';
+  $contactmethods['twitter_profile'] = 'Twitter Profile URL';
+  $contactmethods['facebook_profile'] = 'Facebook Profile URL';
+  $contactmethods['linkedin_profile'] = 'Linkedin Profile URL';
+  
+  return $contactmethods;
+}
+add_filter( 'user_contactmethods', 'add_to_author_profile', 10, 1);
+
+/**
+ * Pagination
+ */
+function pagination_nav() {
+  global $wp_query;
+
+  if ( $wp_query->max_num_pages > 1 ) { ?>
+    <span class="pagination-next"><?php next_posts_link( '&larr; Older posts' ); ?></span>
+    <span class="pagination-prev"><?php previous_posts_link( 'Newer posts &rarr;' ); ?></span>
+  <?php }
+}
+
+/**
  * Enqueue scripts and styles.
  */
 function attila_scripts() {
@@ -137,3 +163,5 @@ function new_excerpt_more( $more ) {
 }
 add_filter('excerpt_more', 'new_excerpt_more');
 
+require get_template_directory() . '/inc/extras.php';
+require get_template_directory() . '/inc/customizer.php';

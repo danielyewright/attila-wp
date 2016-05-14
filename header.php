@@ -21,7 +21,7 @@
     <?php wp_head(); ?>
   </head>
 
-  <body <?php body_class( 'home-template' ); ?>>
+  <body <?php body_class(); ?>>
   <!-- <body <?php body_class(); ?>> -->
     <nav id="menu">
       <a class="close-button">Close</a>

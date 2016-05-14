@@ -1,5 +1,3 @@
-      <div id="body-class" style="display: none;" class="home-template"></div>
-  
       <footer id="footer">
         <div class="inner">
           <section class="credits">

@@ -1,18 +1,33 @@
-<?php 
-
-  get_header(); ?>
-
   <section id="wrapper">
     <a class="hidden-close"></a>
     <header id="blog-header">
       <div class="inner">
         <nav id="navigation">
+          <span id="home-button" class="nav-button">
+            <a class="home-button" href="<?php bloginfo( 'url' ); ?>" title="Home"><i class="ic ic-arrow-left"></i> Home</a>
+          </span>
           <span id="menu-button" class="nav-button">
             <a class="menu-button"><i class="ic ic-menu"></i> Menu</a>
           </span>
         </nav>
-        <h1 class="blog-name"><a href="<?php bloginfo( 'url' ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
-        <span class="blog-description"><?php bloginfo( 'description' ); ?></span>
+        <h1 class="blog-name">
+          <?php
+
+            $categories = get_the_category();
+            $seperator = ", ";
+            $output = '';
+
+            if ($categories) {
+              foreach ($categories as $category) {
+                $output .= '<a href="' . get_category_link( $category->term_id ) . '">' . $category->cat_name . '</a>' . $seperator;
+              }
+
+              echo trim($output, $seperator);
+            }
+
+          ?>
+        </h1>
+    <span class="blog-description">This is a tiny tag description</span>
       </div>
     </header>
 
@@ -45,17 +60,17 @@
 
                   <?php
 
-                  $categories = get_the_category();
-                  $seperator = ", ";
-                  $output = '';
+                    $categories = get_the_category();
+                    $seperator = ", ";
+                    $output = '';
 
-                  if ($categories) {
-                    foreach ($categories as $category) {
-                      $output .= '<a href="' . get_category_link( $category->term_id ) . '">' . $category->cat_name . '</a>' . $seperator;
+                    if ($categories) {
+                      foreach ($categories as $category) {
+                        $output .= '<a href="' . get_category_link( $category->term_id ) . '">' . $category->cat_name . '</a>' . $seperator;
+                      }
+
+                      echo trim($output, $seperator);
                     }
-
-                    echo trim($output, $seperator);
-                  }
 
                   ?>
 
@@ -79,14 +94,9 @@
 
         <nav class="pagination" role="pagination">
           <div class="inner">
-            <!-- <span class="pagination-info">Page 1 of 1</span> -->
-            <span class="pagination-info"><?php pagination_nav(); ?></span>
+            <span class="pagination-info">Page 1 of 1</span>
             <div class="clear"></div>
           </div>
         </nav>  
       </main>
     </div>
-    
-  <?php get_footer(); 
-
-?>
