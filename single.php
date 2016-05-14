@@ -52,14 +52,14 @@
 
               <section class="post-info">
                 <div class="post-share">
-                  <a class="twitter" href="https://twitter.com/share?text=Featured Images for the detail View&url=http://attila.zutrinken.com/featured-images-for-the-detail-view/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                  <a class="twitter" href="<?php echo 'https://twitter.com/share?text=' . get_the_title() . '&url=' . get_the_permalink() ?>" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <i class="ic ic-twitter"></i><span class="hidden">Twitter</span>
                   </a>
-                  <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://attila.zutrinken.com/featured-images-for-the-detail-view/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-                    <i class="ic ic-facebook"></i><span class="hidden">Facebook</span>
+                  <a class="facebook" href="<?php echo 'https://www.facebook.com/sharer/sharer.php?u=' . get_the_permalink() ?>" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <i class="ic ic-facebook"></i><span class="hidden">Twitter</span>
                   </a>
-                  <a class="googleplus" href="https://plus.google.com/share?url=http://attila.zutrinken.com/featured-images-for-the-detail-view/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-                    <i class="ic ic-googleplus"></i><span class="hidden">Google+</span>
+                  <a class="googleplus" href="<?php echo 'https://plus.google.com/share?url=' . get_the_permalink() ?>" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <i class="ic ic-googleplus"></i><span class="hidden">Twitter</span>
                   </a>
                   <div class="clear"></div>
                 </div>
@@ -90,9 +90,9 @@
                       <?php echo get_avatar( get_the_author_meta( 'ID' ), 32 ); ?>
                     </figure>
                   <div class="post-author-bio">
-                    <h4 class="post-author-name"><a href="/author/zutrinken/"><?php the_author(); ?></a></h4>
+                    <h4 class="post-author-name"><a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php the_author(); ?></a></h4>
                       <p class="post-author-about"><?php echo get_the_author_meta( 'description' ); ?></p>
-                      <span class="post-author-location"><i class="ic ic-location"></i> Berlin</span>
+                      <span class="post-author-location"><i class="ic ic-location"></i> <?php echo get_the_author_meta( 'user_location' ); ?></span>
                       <span class="post-author-website"><a href="<?php echo get_the_author_meta( 'user_url' ); ?>" target="_blank"><i class="ic ic-link"></i> Website</a></span>
                   </div>
                   <div class="clear"></div>
@@ -112,13 +112,17 @@
               </section>
 
               <aside class="post-nav">
-                <a class="post-nav-prev" href="/headlines-blockquotes/">
-                  <section class="post-nav-teaser">
-                    <i class="ic ic-arrow-right"></i>
-                    <h2 class="post-nav-title">Headlines, Blockquotes &amp; Images</h2>
-                    <p class="post-nav-excerpt">Chocolate tiramisu pastry cotton candy sesame snaps. Dessert cake chocolate bar sugar&hellip;</p>
-                  </section>
-                </a>
+                <?php 
+                $next_post = get_adjacent_post();
+                if ( is_a( $next_post , 'WP_Post' ) ) : ?>
+                  <a class="post-nav-prev" href="<?php echo get_permalink( $next_post->ID ); ?>">
+                    <section class="post-nav-teaser">
+                      <i class="ic ic-arrow-right"></i>
+                      <h2 class="post-nav-title"><?php echo get_the_title( $next_post->ID ); ?></h2>
+                      <p class="post-nav-excerpt"><?php echo get_the_excerpt( $next_post->ID ); ?></p>
+                    </section>
+                  </a>
+                <?php endif; ?>
                 <div class="clear"></div>
               </aside>
             </div>

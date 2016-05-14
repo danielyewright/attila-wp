@@ -114,6 +114,7 @@ add_action( 'widgets_init', 'attila_widgets_init' );
  * Add Author Links
  */
 function add_to_author_profile( $contactmethods ) {
+  $contactmethods['user_location'] = 'Location';
   $contactmethods['rss_url'] = 'RSS URL';
   $contactmethods['google_profile'] = 'Google Profile URL';
   $contactmethods['twitter_profile'] = 'Twitter Profile URL';
